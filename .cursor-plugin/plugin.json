@@ -1,0 +1,30 @@
+{
+  "name": "mcp-launch-directory-list-builder",
+  "displayName": "Launch Directory List Builder",
+  "version": "1.0.0",
+  "description": "MCP server for Launch Directory List Builder. Ranked, live checked list of startup directories, launch sites, newsletters, and communities to submit a product to. Runs on Apify. Clay-ready output.",
+  "author": {
+    "name": "Mamba Labs",
+    "email": "labs@mambamindsetgrowth.com"
+  },
+  "homepage": "https://mambabuilt.com",
+  "repository": "https://github.com/mambalabsdev/mcp-launch-directory-list-builder",
+  "license": "MIT",
+  "category": "productivity",
+  "tags": [
+    "startup-directories",
+    "product-launch",
+    "backlinks",
+    "seo",
+    "marketing"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "startup-directories",
+    "product-launch",
+    "backlinks",
+    "seo"
+  ],
+  "mcpServers": ".mcp.json"
+}

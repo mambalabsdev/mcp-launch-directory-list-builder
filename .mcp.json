@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "mamba-launch-directory-list-builder": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@mambalabsdev/mcp-launch-directory-list-builder"
+      ],
+      "env": {
+        "APIFY_TOKEN": "your-apify-token"
+      }
+    }
+  }
+}

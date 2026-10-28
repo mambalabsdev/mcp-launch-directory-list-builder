@@ -19,11 +19,14 @@ type ToolResult = {
   content: Array<{ type: "text"; text: string }>;
 };
 
-// Drop undefined values so optional inputs are not sent to the actor.
+// Drop undefined values so optional inputs are not sent to the actor. Numbers
+// and yes or no values go as text: the actor types them string, the way Clay
+// sends every input, and Apify checks that type before the run starts.
 function compact(obj: Record<string, unknown>): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(obj)) {
-    if (v !== undefined) out[k] = v;
+    if (v === undefined) continue;
+    out[k] = typeof v === "number" || typeof v === "boolean" ? String(v) : v;
   }
   return out;
 }
@@ -221,25 +224,25 @@ server.registerTool(
       types: z.array(z.string())
         .optional()
         .describe("Any of directory, product-launch-site, newsletter, community, subreddit, marketplace, citation, github. Default: all but github."),
-      free_only: z.boolean()
+      free_only: z.union([z.boolean(), z.string()])
         .optional()
         .describe("Keep only places marked free. Default false."),
-      dofollow_only: z.boolean()
+      dofollow_only: z.union([z.boolean(), z.string()])
         .optional()
         .describe("Keep only places marked dofollow. Default false."),
-      min_fit_score: z.number().int().min(0).max(100)
+      min_fit_score: z.union([z.number().int().min(0).max(100), z.string()])
         .optional()
         .describe("Keep places scoring at least this, 0 to 100. Needs a description, keywords, or categories. Default 0."),
-      check_live: z.boolean()
+      check_live: z.union([z.boolean(), z.string()])
         .optional()
         .describe("Check each place's submission page today. Default true."),
-      include_rank: z.boolean()
+      include_rank: z.union([z.boolean(), z.string()])
         .optional()
         .describe("Add the Tranco popularity rank. Default true."),
-      max_rows: z.number().int().min(1).max(2000)
+      max_rows: z.union([z.number().int().min(1).max(2000), z.string()])
         .optional()
         .describe("Place rows per run. Default 100."),
-      only_new: z.boolean()
+      only_new: z.union([z.boolean(), z.string()])
         .optional()
         .describe("Skip places an earlier run with the same state_key returned (free). Default false."),
       state_key: z.string()
